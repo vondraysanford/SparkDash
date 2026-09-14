@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SparkDash — vLLM Monitor</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⚡</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>⚡ SparkDash</h1>
+    <div id="health-badge" class="badge unknown"><span class="dot"></span><span id="health-text">checking…</span></div>
+    <div class="kv-wrap">
+      <div class="kv-label">KV cache <span id="kv-value">0%</span></div>
+      <div class="kv-track"><div id="kv-fill" class="kv-fill"></div></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel chart-panel">
+      <h2>Tokens / second <span class="sub">last 5 minutes</span></h2>
+      <div class="chart-box"><canvas id="rate-chart"></canvas></div>
+      <div class="req-row">
+        <span class="req">running <b id="running">0</b></span>
+        <span class="req">waiting <b id="waiting">0</b></span>
+      </div>
+    </section>
+
+    <section class="panel chat-panel">
+      <h2>Chat <span class="sub">GLM-5.3-Flash-EXL3</span></h2>
+      <div id="chat-log" class="chat-log"></div>
+      <form id="chat-form" class="chat-form">
+        <textarea id="chat-input" rows="2" placeholder="Ask something…" autofocus></textarea>
+        <div class="chat-actions">
+          <button type="submit" id="send-btn">Send</button>
+          <button type="button" id="stop-btn" disabled>Stop</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <template id="tpl-user">
+    <div class="msg user"><div class="bubble"></div></div>
+  </template>
+  <template id="tpl-assistant">
+    <div class="msg assistant">
+      <details class="thinking"><summary>thinking</summary><div class="reasoning"></div></details>
+      <div class="bubble"></div>
+    </div>
+  </template>
+  <template id="tpl-error">
+    <div class="msg error-bubble"></div>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

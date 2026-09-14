@@ -1,0 +1,166 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #2d333b;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #f78136;
+  --accent2: #58a6ff;
+  --green: #3fb950;
+  --red: #f85149;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  flex-wrap: wrap;
+}
+
+h1 { font-size: 1.2rem; margin: 0; }
+h2 { font-size: 0.95rem; margin: 0 0 10px; color: var(--muted); font-weight: 600; }
+h2 .sub { font-weight: 400; font-size: 0.8rem; opacity: 0.7; }
+
+/* health badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+.badge .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.badge.up .dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.badge.down .dot { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+/* KV gauge */
+.kv-wrap { margin-left: auto; min-width: 200px; }
+.kv-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+.kv-label span { color: var(--text); font-variant-numeric: tabular-nums; }
+.kv-track {
+  height: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.kv-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  transition: width 0.6s ease;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.chart-box { height: 260px; position: relative; }
+.req-row { display: flex; gap: 18px; margin-top: 10px; }
+.req { font-size: 0.82rem; color: var(--muted); }
+.req b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* chat */
+.chat-log {
+  height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 4px;
+}
+.msg { display: flex; }
+.msg.user { justify-content: flex-end; }
+.bubble {
+  max-width: 82%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+}
+.msg.user .bubble { background: #1f6feb33; border: 1px solid #1f6feb66; }
+.msg.assistant .bubble { background: var(--bg); border: 1px solid var(--border); }
+.msg.error-bubble {
+  color: var(--red);
+  font-size: 0.82rem;
+  justify-content: center;
+}
+
+details.thinking {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+details.thinking summary {
+  cursor: pointer;
+  user-select: none;
+  font-style: italic;
+}
+details.thinking[open] summary { margin-bottom: 4px; }
+.reasoning {
+  border-left: 2px solid var(--border);
+  padding: 4px 0 4px 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.chat-form { margin-top: 12px; }
+#chat-input {
+  width: 100%;
+  resize: vertical;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 0.9rem;
+}
+#chat-input:focus { outline: none; border-color: var(--accent2); }
+.chat-actions { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+button {
+  background: var(--accent);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+#stop-btn { background: var(--panel); color: var(--text); border: 1px solid var(--border); }
