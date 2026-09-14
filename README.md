@@ -150,9 +150,8 @@ Keep the code under about 800 lines excluding tests.
 
 ## Contributors
 
-- **[Vondray Sanford](https://github.com/vondraysanford)** — spec, hardware,
-  review, evidence captures, and benchmarks
-- **[Shah Young](https://github.com/shah-young)**
+- **[Vondray Sanford](https://github.com/vondraysanford)** — spec, hardware, review, evidence captures, and benchmarks
+- **[Shah Young](https://github.com/shah-young)** - networking, infrastructure, resource testing, local environment validation, QA (quality assurance) validation
   
 Contributions are welcome. Fork the repo, make your change on a branch, run
 `pytest`, and open a pull request. Keep to the project's constraints: no
