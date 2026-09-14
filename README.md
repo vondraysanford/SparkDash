@@ -8,6 +8,8 @@ Plain FastAPI + vanilla JS, no database, no bundler.
 Built end to end by **GLM-5.3-Flash** running on two NVIDIA DGX Sparks, in one
 VS Code agent session, from the spec in [How this was built](#how-this-was-built).
 
+![SparkDash running in VS Code's browser tab next to the agent session that built it](evidence/2026-09-13-sparkdash-in-vscode-agent-session.png)
+
 - **Health badge** — proxies the server's `/health`, shows up/down and latency
 - **Tokens/s chart** — prompt and generation tokens per second for the last
   5 minutes, computed from Prometheus counter deltas between 2-second polls
