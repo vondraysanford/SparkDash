@@ -1,6 +1,9 @@
 # ⚡ SparkDash
 
 [![tests](https://github.com/vondraysanford/SparkDash/actions/workflows/tests.yml/badge.svg)](https://github.com/vondraysanford/SparkDash/actions/workflows/tests.yml)
+[![license](https://img.shields.io/github/license/vondraysanford/SparkDash)](LICENSE)
+[![python](https://img.shields.io/badge/python-3.12-blue?logo=python&logoColor=white)](Dockerfile)
+[![last commit](https://img.shields.io/github/last-commit/vondraysanford/SparkDash)](https://github.com/vondraysanford/SparkDash/commits/main)
 
 A tiny web dashboard + chat client for a [vLLM](https://docs.vllm.ai/) server.
 Plain FastAPI + vanilla JS, no database, no bundler.
