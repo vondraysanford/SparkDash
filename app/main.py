@@ -19,7 +19,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
-VLLM_BASE = os.environ.get("VLLM_BASE_URL", "http://192.168.1.165:8888")
+VLLM_BASE = os.environ.get("VLLM_BASE_URL", "http://localhost:8000")
 MODEL = os.environ.get("VLLM_MODEL", "GLM-5.3-Flash-EXL3")
 HISTORY_MAX_SECONDS = 300.0  # keep 5 minutes of metric history
 
