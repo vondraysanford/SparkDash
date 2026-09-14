@@ -83,6 +83,17 @@ push.
 Screenshots and clips of the dashboard against the live server live in
 [`evidence/`](evidence/). See its README for the capture list.
 
+## Benchmarks
+
+`vllm bench serve` runs against the same server live in [`bench/`](bench/),
+with the raw console output per run and the caveats that go with each number.
+First runs, 2026-09-14, random tokens 1,024 in / 256 out: a single stream
+reached its first token in about 1.1 s and decoded at 13.5 to 15.2 tok/s
+across two runs, with draft acceptance collapsed to 9 to 12 percent by the
+random input, so those figures are the server's floor. Four concurrent streams gave 18 tok/s aggregate and a median
+first-token wait of 39 s, which is the recipe's mixed-prefill policy rather
+than the hardware. Details and the real-text follow-ups are in the bench README.
+
 ## How this was built
 
 | | |

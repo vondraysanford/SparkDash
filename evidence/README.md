@@ -14,13 +14,20 @@ recordings out of git (`raw/` is ignored).
 | `2026-09-13-nvidia-sync-cluster-during-sparkdash-build.png` | NVIDIA Sync cluster view over the 40 minutes of the build: CPU bursts on the head while the agent worked, 250 GB of 261 GB in use, GPUs idle between requests |
 | `2026-09-13-agent-session-summary.md` | The model's own structured summary of the session: timeline, decisions, errors and fixes, verification, open items |
 
+### Benchmarks and follow-up tests (2026-09-14)
+
+| File | What it shows |
+| --- | --- |
+| `2026-09-14-vllm-bench-serve-random-c1-result.png` | The result block of a **second** concurrency-1 `vllm bench serve` run, same settings as the logged one: 15.2 tok/s, median TTFT 1.10 s, draft acceptance 11.8 %. The first run, logged in [`../bench/results/`](../bench/results/), gave 13.5 tok/s and 9.1 %. Only the screenshot exists for this repeat; its JSON is still in the container. Interpretation in [`../bench/`](../bench/) |
+| `2026-09-14-vllm-bench-serve-random-c4-result.png` | The result block of the concurrency-4 run: 18.0 tok/s aggregate, median TTFT 39 s, draft acceptance 10.9 % |
+| `2026-09-14-vscode-glm-vision-test-reads-sync-dashboard.png` | Vision test from VS Code: the model given the cluster-during-build screenshot and asked what it thinks. It reads the numbers correctly (250 GB of 261 GB, 14 W and 12 W, 55 °C and 52 °C, 97 % and 94 % memory), explains what an idle serving node looks like, and nitpicks the chart's axis labels and the flat GPU gauge |
+
 ### Server bring-up, same day (context for the post)
 
 | File | What it shows |
 | --- | --- |
 | `2026-09-13-glm-preflight-refusal-then-ok-and-rsync.png` | Preflight refusing on an empty GID table for the worker's `rocep1s0f0`, dumping both nodes' GID tables; then, after the `.env` fix, preflight OK, image rebuild and ship, overlay verify OK, and the 164 GiB rsync running at ~398 MB/s |
 | `2026-09-13-glm-server-up-after-640s.png` | vLLM route list, health check passed after 640 s, boot warmup 20 of 20 in 45 s, and the "GLM-5.3-Flash EXL3 is UP (TP=2, nnodes=2)" banner with endpoints |
-| `2026-09-13-glm-first-reply-garbled.png` | Health 200, then the first "hello!" reply: 323 tokens of unrelated HTML ending in a claim to be Claude. Overlapped the boot warmup; never recurred |
 | `2026-09-13-glm-health-200-and-17x23-391.png` | Health 200 and "What is 17 times 23?" answered `391` at temperature 0 |
 | `2026-09-13-glm-prose-and-fibonacci.png` | Default sampling: a two-sentence DGX Spark description, then a Fibonacci function with a short reasoning trace at `reasoning_effort: high` |
 | `2026-09-13-nvidia-sync-cluster-glm-loaded.png` | NVIDIA Sync cluster view with the model loaded: 244 GB of 261 GB used, spark-927a at 95 % (124 GB) and spark-11ed at 92 % (120 GB) |
