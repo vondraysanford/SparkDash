@@ -147,3 +147,14 @@ Requirements:
 
 Keep the code under about 800 lines excluding tests.
 ```
+
+## Contributors
+
+- **[Vondray Sanford](https://github.com/vondraysanford)** — spec, hardware,
+  review, evidence captures, and benchmarks
+
+Contributions are welcome. Fork the repo, make your change on a branch, run
+`pytest`, and open a pull request. Keep to the project's constraints: no
+database, no bundler, and about 800 lines excluding tests. SparkDash is
+[MIT licensed](LICENSE), so anything you submit is released under the same
+terms.
