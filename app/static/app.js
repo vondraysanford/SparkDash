@@ -52,17 +52,21 @@ const kvValue = document.getElementById("kv-value");
 const runningEl = document.getElementById("running");
 const waitingEl = document.getElementById("waiting");
 
-function pushPoint(p) {
-  const time = new Date(p.t * 1000).toLocaleTimeString([], {
+function fmtTime(t) {
+  return new Date(t * 1000).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
   });
-  rateChart.data.labels.push(time);
+}
+
+function pushPoint(p) {
+  const labels = rateChart.data.labels;
+  labels.push(fmtTime(p.t));
   rateChart.data.datasets[0].data.push(p.prompt_tokens_per_sec);
   rateChart.data.datasets[1].data.push(p.generation_tokens_per_sec);
-  if (rateChart.data.labels.length > WINDOW_POINTS) {
-    rateChart.data.labels.shift();
+  if (labels.length > WINDOW_POINTS) {
+    labels.shift();
     rateChart.data.datasets.forEach((d) => d.data.shift());
   }
   rateChart.update("none");
@@ -154,41 +158,33 @@ function addErrorBubble(text) {
  */
 function addAssistantShell() {
   const node = tplAssistant.content.cloneNode(true);
-  const root = node.querySelector(".msg.assistant");
   const details = node.querySelector("details.thinking");
   const reasoningEl = node.querySelector(".reasoning");
   const bubble = node.querySelector(".bubble");
   chatLog.appendChild(node);
+  let reasoningText = "";
+  let contentText = "";
+  let autoOpened = false;
   return {
-    root,
-    details,
-    reasoningEl,
-    bubble,
-    reasoningText: "",
-    contentText: "",
     appendReasoning(piece) {
-      this.reasoningText += piece;
-      this.reasoningEl.textContent = this.reasoningText;
-      this.reasoningEl.scrollTop = this.reasoningEl.scrollHeight;
-      if (this.reasoningText) {
-        this.details.classList.add("has-reasoning");
-        if (!this.details.open && !this._autoOpened) {
-          // Peek while thinking; user can collapse it any time.
-          this.details.open = true;
-          this._autoOpened = true;
-        }
+      reasoningText += piece;
+      reasoningEl.textContent = reasoningText;
+      reasoningEl.scrollTop = reasoningEl.scrollHeight;
+      if (reasoningText && !autoOpened) {
+        // Peek while thinking; user can collapse it any time.
+        details.open = true;
+        autoOpened = true;
       }
       scrollBottom();
     },
     appendContent(piece) {
-      this.contentText += piece;
-      this.bubble.textContent = this.contentText;
+      contentText += piece;
+      bubble.textContent = contentText;
       scrollBottom();
     },
     finalize() {
-      // Collapse thinking once the answer starts arriving for real.
-      if (this.contentText) this.details.open = false;
-      if (!this.reasoningText) this.details.remove();
+      if (contentText) details.open = false;
+      if (!reasoningText) details.remove();
     },
   };
 }
